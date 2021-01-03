@@ -11,13 +11,13 @@ np.random.seed(1)
 
 
 def load_dataset():
-    train_dataset = h5py.File('/home/li/heisong/Jupy/Train_Set_W_1.h5', "r")
+    train_dataset = h5py.File('/home/li/DataSet/cat/train_catvnoncat.h5', "r")
     # your train set features
     train_set_x_orig = np.array(train_dataset["train_set_x"][:])
     train_set_y_orig = np.array(
         train_dataset["train_set_y"][:])  # your train set labels
 
-    test_dataset = h5py.File('/home/li/heisong/Jupy/Test_Set_W_1.h5', "r")
+    test_dataset = h5py.File('/home/li/DataSet/cat/test_catvnoncat.h5', "r")
     # your test set features
     test_set_x_orig = np.array(test_dataset["test_set_x"][:])
     test_set_y_orig = np.array(
@@ -174,7 +174,7 @@ def L_model_forward(X, parameters):
     return AL, caches
 
 
-def compute_cost(AL, Y):
+def compute_cost(AL, Y, parameters):
     """
     实施等式（4）定义的成本函数。
 
@@ -367,7 +367,7 @@ def L_layer_model(X, Y, layers_dims, learning_rate=0.035, num_iterations=5000, p
     for i in range(0, num_iterations):
         AL, caches = L_model_forward(X, parameters)
 
-        cost = compute_cost(AL, Y)
+        cost = compute_cost(AL, Y,parameters)
 
         grads = L_model_backward(AL, Y, caches)
 
@@ -406,7 +406,7 @@ test_y = test_set_y
 
 layers_dims = [12288, 20, 10, 7, 5, 1]  # 5-layer model
 parameters = L_layer_model(train_x, train_y, layers_dims,
-                           num_iterations=10000, print_cost=True, isPlot=False)
+                           num_iterations=5000, print_cost=True, isPlot=True)
 ''
 print("Train:")
 pred_train = predict(train_x, train_y, parameters)  # 训练集
